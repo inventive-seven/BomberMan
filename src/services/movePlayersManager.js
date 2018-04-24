@@ -78,9 +78,17 @@ const utils = require('../lib/utils')
 			socket.emit('start-position', data)
 		})
 		socket.on('check-bomb-dead', (data) => {
-			let deadplayers = players.filter(player => (player.px === data.bomb.px || player.px === data.bomb.px ||
-				player.px === data.bomb.px - 1 || player.px === data.bomb.px + 1 ||
-				player.px === data.bomb.px - 1 || player.py !== data.bomb.py + 1)) || []
+			console.log(data)
+			let deadplayers = data.playerInSameRoom.filter(player => (player.px === data.bomb.px && player.py === data.bomb.py ||
+					player.px === data.bomb.px + 1 && player.py === data.bomb.py ||
+					player.px === data.bomb.px - 1 && player.py === data.bomb.py) ||
+				player.px === data.bomb.px && player.py === data.bomb.py + 1 ||
+				player.px === data.bomb.px && player.py === data.bomb.py - 1 ||
+				player.px === data.bomb.px + 1 && player.py === data.bomb.py + 1 ||
+				player.px === data.bomb.px - 1 && player.py === data.bomb.py - 1 ||
+				player.px === data.bomb.px + 1 && player.py === data.bomb.py - 1 ||
+				player.px === data.bomb.px - 1 && player.py === data.bomb.py + 1) || []
+			console.log('DEADPLAYER', deadplayers)
 			data.deadplayers = deadplayers
 			socket.emit('check-bomb-dead', data)
 		})

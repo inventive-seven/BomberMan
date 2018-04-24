@@ -53,12 +53,14 @@ var app = new Vue({
       this.canvas.provider.fillRect(pl.px * 20, pl.py * 20, 20, 20);
     },
     clearPlayer: function(data) {
+      console.log(data)
       this.canvas.provider.fillStyle = 'gray'
       this.canvas.provider.fillRect(data.player.px * 20, data.player.py * 20, 20, 20)
-      if (this.player.id == data.player.id) {
-        this.player = null
-        alert('you are dead')
-      }
+      if (data.player)
+        if (this.player.id == data.player.id) {
+          this.player = null
+          alert('you are dead')
+        }
     },
     clearBomb: function(data) {
       this.canvas.provider.fillStyle = 'gray'
@@ -89,8 +91,9 @@ var app = new Vue({
           this.canvas.provider.fillRect(data.oldPlayer.px * 20, data.oldPlayer.py * 20, 20, 20)
         }
       }
-      if (data.player.id == this.player.id)
-        this.player = data.player
+      if (this.player)
+        if (data.player.id == this.player.id)
+          this.player = data.player
       this.canvas.provider.fillStyle = 'white'
       this.canvas.provider.fillRect(data.player.px * 20, data.player.py * 20, 20, 20)
     },
@@ -186,8 +189,9 @@ var app = new Vue({
             this.bombs = data.bombs
           })
           this.socket.on('bomb-exploison', (data) => {
+            console.log(data)
             this.bombs = data.bombs
-            this.clearBomb(data.bomb)
+            this.clearBomb(data)
           })
           this.socket.on('dead', (data) => {
             this.clearPlayer(data)

@@ -51,7 +51,9 @@ wsServer.on('connection', function connection(wsClient) {
 					data.playerInSameRoom.forEach(plInSameRoom => {
 						wsServer.clients[plInSameRoom.id].emit('bomb-exploison', data)
 						data.deadplayers.forEach(deadplayer => {
+							console.log('DEAD', deadplayer, plInSameRoom)
 							data.player = deadplayer
+							wsServer.movePlayersManager.emit('disconnect-player', deadplayer.id)
 							wsServer.clients[plInSameRoom.id].emit('dead', data)
 						})
 					})
