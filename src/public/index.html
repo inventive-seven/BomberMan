@@ -1,0 +1,54 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Bomber Man</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+    <div id="game">
+         <canvas id="canvas" width="800" height="800" v-if="!notInRoom" v-on:keydown="keymonitor"></canvas>
+    <div id="username" v-if="!nickname">
+            <ul id="name-input">       
+                        <input id="nickname" v-model="name" type="text" placeholder="Pick up Bomber nick!">
+                        <button id="send-nick" v-on:click="submitNickname(name)">Bomb!</button>
+            </ul>
+   </div> 
+   <div id="game-menu" v-if="nickname && notInRoom">
+   <span style="display:inline-block">Rooms list</span>
+       <button id="menuBtn" style="display:inline-block" v-on:click="menuButton(roomname)">Bomb!</button>
+   <ul>
+    <li v-for="(room, index) in rooms" v-on:click="selectRoom(index, room)" v-bind:id="index" v-bind:class="{ 'chosen': !!room.selected }">
+        {{room.name}}
+    </li>
+   </ul>
+    <input id="room-name" v-model="roomname" type="text" placeholder="Enter bomb room title!">
+   </div>
+   </div> 
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="scripts/vue.js"></script>
+    <script src="scripts/app.js"></script>
+    <script>
+    var backgroundAudio = new Audio('./resources/background.mp3')
+    backgroundAudio.play()
+
+</script>
+</body>
+
+<style>
+  li.chosen {
+    border: 1px solid silver;
+    background: #8e8;
+  }
+  canvas{
+  background:gray;
+  width:800px;
+  height:800;
+}
+</style>
+
+</html>

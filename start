@@ -1,0 +1,5 @@
+pm2 start src/services/playersManager.js
+pm2 start src/services/roomsManager.js
+pm2 start src/services/movePlayersManager.js
+pm2 start src/services/bombsManager.js
+pm2 start src/gateway.js
