@@ -16,8 +16,8 @@ const utils = require('../lib/utils')
 			players.pushIfNotExist({
 				id: data.id,
 				nickname: data.nickname,
-				px: utils.getRandomInt(0, 40),
-				py: utils.getRandomInt(0, 40),
+				px: utils.getRandomInt(0, 30),
+				py: utils.getRandomInt(0, 30),
 			}, el => el.nickname == data.nickname)
 		})
 		socket.on('disconnect-player', (playerId) => {
@@ -46,7 +46,7 @@ const utils = require('../lib/utils')
 			}
 			let pl = players.find(player => player.id == data.player.id);
 			let op = players.find(player => (player.px == pl.px + mv.x && player.py == pl.py + mv.y))
-			if (typeof op === 'undefined') {
+			if (typeof op === 'undefined' && pl.px + mv.x < 30 && pl.py + mv.y < 30) {
 				pl.px += mv.x
 				pl.py += mv.y
 				data.oldPlayer = data.player

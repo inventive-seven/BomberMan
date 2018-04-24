@@ -11,8 +11,8 @@
 </head>
 <body>
     <div id="game">
-        <div id="me" v-if="!nickname">{{nickname}}</div>
-         <canvas id="canvas" width="800" height="800" v-if="!notInRoom" v-on:keydown="keymonitor"></canvas>
+        <div id="me" v-if="nickname">{{nickname}}</div>
+         <canvas id="canvas" width="600" height="600" v-if="!notInRoom" v-on:keydown="keymonitor"></canvas>
     <div id="username" v-if="!nickname">
             <ul id="name-input">       
                         <input id="nickname" v-model="name" type="text" placeholder="Pick up Bomber nick!">
@@ -45,10 +45,17 @@
     border: 1px solid silver;
     background: #8e8;
   }
+  #game{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+  }
   canvas{
   background:gray;
-  width:800px;
-  height:800;
+  width:600px;
+  height:600;
 }
 </style>
 
